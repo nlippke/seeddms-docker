@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <site>
+    <!-- siteName: Name of site used in the page titles. Default: SeedDMS
+       - footNote: Message to display at the bottom of every page
+       - printDisclaimer: if true the disclaimer message the lang.inc files will be print on the bottom of the page
+       - language: default language (name of a subfolder in folder "languages")
+       - theme: default style (name of a subfolder in folder "styles")
+    -->
+    <display siteName="SeedDMS" footNote="" printDisclaimer="false" language="de_DE" theme="bootstrap" previewWidthList="40" previewWidthDetail="100" availablelanguages="" showFullPreview="true" convertToPdf="true" onePageMode="on" previewWidthMenuList="40" previewWidthDropFolderList="100" maxItemsPerPage="0" incItemsPerPage="0">  
+    </display>
+    <!-- strictFormCheck: Strict form checking. If set to true, then all fields in the form will be checked for a value. If set to false, then (most) comments and keyword fields become optional. Comments are always required when submitting a review or overriding document status.
+       - viewOnlineFileTypes: files with one of the following endings can be viewed online (USE ONLY LOWER CASE CHARACTERS)
+       - enableConverting: enable/disable converting of files
+       - enableEmail: enable/disable automatic email notification
+       - enableUsersView: enable/disable group and user view for all users
+       - enableFullSearch: false to don't use fulltext search
+       - enableLanguageSelector: false to don't show the language selector after login
+       - enableClipboard: false to hide the clipboard
+       - enableFolderTree: false to don't show the folder tree
+       - expandFolderTree: 0 to start with tree hidden
+       -                   1 to start with tree shown and first level expanded
+       -                   2 to start with tree shown fully expanded     
+       - stopWordsFile: path to stop word file for indexer
+       - sortUsersInList: how to sort users in lists ('fullname' or '' (default))
+    -->   
+    <edition strictFormCheck="false" viewOnlineFileTypes=".txt;.text;.html;.htm;.xml;.pdf;.gif;.png;.jpg;.jpeg" enableConverting="true" enableEmail="false" enableUsersView="true" enableFullSearch="true" enableClipboard="true" enableFolderTree="true" expandFolderTree="1" enableLanguageSelector="true" stopWordsFile="/var/www/seeddms/data/conf/stopwords.txt" sortUsersInList="" enableDropUpload="true" enableRecursiveCount="false" maxRecursiveCount="0" enableThemeSelector="false" fullSearchEngine="sqlitefts" sortFoldersDefault="u" editOnlineFileTypes=".txt;.text" enableMenuTasks="false" enableHelp="false" defaultSearchMethod="fulltext" libraryFolder="0" maxSizeForFullText="0" showSingleSearchHit="false" enableSessionList="false" enableDropFolderList="true" enableMultiUpload="true" defaultDocPosition="end">
+    </edition> 
+    <!-- enableCalendar: enable/disable calendar
+       - calendarDefaultView: calendar default view ("w" for week,"m" for month,"y" for year)
+       - firstDayOfWeek: first day of the week (0=sunday, 6=saturday)
+    -->  
+    <calendar enableCalendar="false" calendarDefaultView="y" firstDayOfWeek="0">
+    </calendar>
+  <webdav enableWebdavReplaceDoc="true"/></site>
+  
+  <system>
+    <!-- rootDir: Path to where SeedDMS is located
+       - httpRoot: The relative path in the URL, after the domain part. Do not include the
+       -           http:// prefix or the web host name. e.g. If the full URL is
+	     -           http://www.example.com/seeddms/, set $_httpRoot = "/seeddms/".
+	     -           If the URL is http://www.example.com/, set $_httpRoot = "/".
+       - contentDir: Where the uploaded files are stored (best to choose a directory that
+       -             is not accessible through your web-server)
+       - stagingDir: Where partial file uploads are saved
+       - luceneDir: Where the lucene fulltext index iѕ saved
+       - logFileEnable: set false to disable log system
+       - logFileRotation: the log file rotation (h=hourly, d=daily, m=monthly)
+       - enableLargeFileUpload: support for jumploader
+       - partitionsize: size of chunk uploaded by jumploader
+       - dropFolderDir: where files for document upload are located
+       - cacheDir: where the preview images are saved
+       - backupDir: where the backups are saved
+    -->
+    <server rootDir="/var/www/seeddms/seeddms-5.1.13/" httpRoot="/" contentDir="/var/www/seeddms/data/" stagingDir="/var/www/seeddms/data/staging/" luceneDir="/var/www/seeddms/data/lucene/" logFileEnable="true" logFileRotation="d" enableLargeFileUpload="false" partitionSize="2000000" cacheDir="/var/www/seeddms/data/cache/" dropFolderDir="" backupDir="/var/www/seeddms/data/backup/" checkOutDir="" createCheckOutDir="false" repositoryUrl="https://repository.seeddms.org/dd278323b03fd2aa5510b8fa9addf5ea/" maxUploadSize="" enableXsendfile="false">
+    </server>
+    
+    <!-- enableGuestLogin: If you want anybody to login as guest, set the following line to true
+       -                   note: guest login should be used only in a trusted environment
+			 - enablePasswordForgotten: Allow users to reset their password
+       - restricted: Restricted access: only allow users to log in if they have an entry in the local database (irrespective of successful authentication with LDAP).
+       - enableUserImage: enable users images
+       - disableSelfEdit: if true user cannot edit his own profile
+			 - passwordStrength: minimum strength of password, set to 0 to disable
+			 - passwordExpiration: number of days after password expires
+			 - passwordHistory: number of remembered passwords
+			 - passwordStrengthAlgorithm: algorithm used to calculate password strenght (simple or advanced)
+			 - encryptionKey: arbitrary string used for creating identifiers
+    -->    
+    <authentication enableGuestLogin="false" enablePasswordForgotten="true" restricted="true" enableUserImage="true" disableSelfEdit="false" passwordStrength="0" passwordStrengthAlgorithm="simple" passwordExpiration="10" passwordHistory="0" loginFailure="0" autoLoginUser="0" quota="0" undelUserIds="" encryptionKey="cfecb42d13f2e1666cddde56991a2cbf" cookieLifetime="0" enableGuestAutoLogin="false" defaultAccessDocs="0">
+      <connectors>
+        <!-- ***** CONNECTOR LDAP  *****
+           - enable: enable/disable connector
+           - type: type of connector ldap / AD
+           - host: hostname of the authentification server
+           -       URIs are supported, e.g.: ldaps://ldap.host.com
+           - port: port of the authentification server
+           - baseDN: top level of the LDAP directory tree
+        -->  
+        <connector enable="false" type="ldap" host="ldaps://ldap.host.com" port="389" baseDN="" bindDN="" bindPw="">
+        </connector>
+        <!-- ***** CONNECTOR Microsoft Active Directory  *****
+           - enable: enable/disable connector
+           - type: type of connector ldap / AD
+           - host: hostname of the authentification server
+           - port: port of the authentification server
+           - baseDN: top level of the LDAP directory tree
+           - accountDomainName: sample: example.com
+        -->  
+        <connector enable="false" type="AD" host="ldap.example.com" port="389" baseDN="" accountDomainName="example.com" bindDN="" bindPw="">
+        </connector>
+      </connectors>
+    </authentication>
+    <!--
+       - dbDriver: DB-Driver used by adodb (see adodb-readme)
+       - dbHostname: DB-Server
+       - dbDatabase: database where the tables for seeddms are stored (optional - see adodb-readme)
+       - dbUser: username for database-access
+       - dbPass: password for database-access
+    -->    
+    <database dbDriver="sqlite" dbHostname="localhost" dbDatabase="/var/www/seeddms/data/content.db" dbUser="seeddms" dbPass="seeddms" doNotCheckVersion="false">
+    </database>
+    <!-- smtpServer: SMTP Server hostname
+       - smtpPort: SMTP Server port
+       - smtpSendFrom: Send from
+    -->    
+    <smtp smtpServer="localhost" smtpPort="25" smtpSendFrom="seeddms@localhost" smtpUser="" smtpPassword=""/>    
+  </system>
+ 
+  
+  <advanced>
+    <!-- siteDefaultPage: Default page on login. Defaults to out/out.ViewFolder.php
+       - rootFolderID: ID of root-folder (mostly no need to change)
+       - titleDisplayHack: Workaround for page titles that go over more than 2 lines.
+    -->  
+    <display siteDefaultPage="" rootFolderID="1" titleDisplayHack="true" showMissingTranslations="false">
+    </display>
+    <!-- guestID: ID of guest-user used when logged in as guest (mostly no need to change)
+       - adminIP: if enabled admin can login only by specified IP addres, leave empty to avoid the control
+       -          NOTE: works only with local autentication (no LDAP)
+    --> 
+    <authentication guestID="2" adminIP="">
+    </authentication>
+    <!-- enableAdminRevApp: false to don't list administrator as reviewer/approver
+       - versioningFileName: the name of the versioning info file created by the backup tool
+       - workflowMode: 'traditional' or 'advanced'
+       - enableVersionDeletion: allow to delete versions after approval
+       - enableVersionModification: allow to modify versions after approval
+       - enableDuplicateDocNames: allow duplicate names in a folder
+    --> 
+    <edition enableAdminRevApp="false" versioningFileName="versioning_info.txt" workflowMode="traditional_only_approval" enableVersionDeletion="true" enableVersionModification="true" enableDuplicateDocNames="true" enableOwnerRevApp="false" enableSelfRevApp="false" presetExpirationDate="" overrideMimeType="false" initialDocumentStatus="0" enableAcknowledgeWorkflow="" enableRevisionWorkflow="" advancedAcl="false" enableUpdateRevApp="false" removeFromDropFolder="false" allowReviewerOnly="false" enableDuplicateSubFolderNames="false">
+    </edition>
+		<!-- enableNotificationAppRev: true to send notifation if a user is added as a reviewer or approver
+		-->
+    <notification enableNotificationAppRev="true" enableOwnerNotification="false" enableNotificationWorkflow="false">
+    </notification>
+    <!-- coreDir: Path to SeedDMS_Core (optional)
+       - luceneClassDir: Path to SeedDMS_Lucene (optional)
+       - contentOffsetDir: To work around limitations in the underlying file system, a new 
+       -                   directory structure has been devised that exists within the content 
+       -                   directory ($_contentDir). This requires a base directory from which 
+       -                   to begin. Usually leave this to the default setting, 1048576, but can 
+       -                   be any number or string that does not already exist within $_contentDir.	
+       - maxDirID: Maximum number of sub-directories per parent directory. Default: 0, use 31998 (maximum number of dirs in ext3) for a multi level content directory.
+       - updateNotifyTime: users are notified about document-changes that took place within the last "updateNotifyTime" seconds
+       - extraPath: Path to addtional software. This is the directory containing additional software like the adodb directory, or the pear Log package. This path will be added to the php include path
+    -->
+    <server coreDir="" luceneClassDir="" contentOffsetDir="1048576" maxDirID="0" updateNotifyTime="86400" extraPath="/var/www/seeddms/pear/" maxExecutionTime="30" cmdTimeout="30">
+    </server>
+    <converters target="fulltext">
+		 <converter mimeType="application/pdf">ocrmypdf.sh %s</converter>
+     <converter mimeType="application/msword">catdoc %s</converter>
+     <converter mimeType="application/vnd.ms-excel">ssconvert -T Gnumeric_stf:stf_csv -S %s fd://1</converter>
+     <converter mimeType="audio/mp3">id3 -l -R %s | egrep '(Title|Artist|Album)' | sed 's/^[^:]*: //g'</converter>
+     <converter mimeType="audio/mpeg">id3 -l -R %s | egrep '(Title|Artist|Album)' | sed 's/^[^:]*: //g'</converter>
+     <converter mimeType="text/plain">cat %s</converter>
+    <converter mimeType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">xlsx2csv %s</converter><converter mimeType="application/vnd.openxmlformats-officedocument.wordprocessingml.document">docx2txt %s -</converter><converter mimeType="image/jpeg">tesseract %s - -l deu --psm 3 --oem 3 2&gt; /dev/null | tr '\n' ' '</converter></converters>
+
+  <converters target="preview"><converter mimeType="image/*">convert -resize %wx '%f' '%o'</converter><converter mimeType="application/pdf">convert -density 100 -resize %wx '%f[0]' '%o'</converter><converter mimeType="application/postscript">convert -density 100 -resize %wx '%f[0]' '%o'</converter><converter mimeType="text/plain">a2ps -1 -a1  -R -B -o - '%f' | gs -dBATCH -dNOPAUSE -sDEVICE=pngalpha -dFirstPage=1 -dLastPage=1 -dPDFFitPage -r72x72 -sOutputFile=- -q - | convert  -resize %wx png:- '%o'</converter></converters></advanced>
+
+<extensions><extension name="example"/></extensions></configuration>

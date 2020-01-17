@@ -1,0 +1,20 @@
+#!/bin/sh
+set -e
+
+echo "args  $@"
+
+# first run?
+if [ ! -f /var/www/seeddms/data/content.db ]; then
+    mkdir -p /var/www/seeddms/data
+    cp -a /var/www/seeddms/data.bak/* /var/www/seeddms/data
+fi
+
+if [ ! -L "/var/www/seeddms/conf" ]; then
+	rm -rf /var/www/seeddms/conf
+    ln -s /var/www/seeddms/data/conf /var/www/seeddms/conf    
+fi
+
+rm -f /var/run/cron*
+cron
+
+. /usr/local/bin/docker-php-entrypoint
