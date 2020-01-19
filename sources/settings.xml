@@ -52,7 +52,7 @@
        - cacheDir: where the preview images are saved
        - backupDir: where the backups are saved
     -->
-    <server rootDir="/var/www/seeddms/seeddms-5.1.13/" httpRoot="/" contentDir="/var/www/seeddms/data/" stagingDir="/var/www/seeddms/data/staging/" luceneDir="/var/www/seeddms/data/lucene/" logFileEnable="true" logFileRotation="d" enableLargeFileUpload="false" partitionSize="2000000" cacheDir="/var/www/seeddms/data/cache/" dropFolderDir="" backupDir="/var/www/seeddms/data/backup/" checkOutDir="" createCheckOutDir="false" repositoryUrl="https://repository.seeddms.org/dd278323b03fd2aa5510b8fa9addf5ea/" maxUploadSize="" enableXsendfile="false">
+    <server rootDir="/var/www/seeddms/seeddms/" httpRoot="/" contentDir="/var/www/seeddms/data/" stagingDir="/var/www/seeddms/data/staging/" luceneDir="/var/www/seeddms/data/lucene/" logFileEnable="true" logFileRotation="d" enableLargeFileUpload="false" partitionSize="2000000" cacheDir="/var/www/seeddms/data/cache/" dropFolderDir="/var/www/seeddms/import/" backupDir="/var/www/seeddms/backup/" checkOutDir="" createCheckOutDir="false" repositoryUrl="https://repository.seeddms.org/dd278323b03fd2aa5510b8fa9addf5ea/" maxUploadSize="" enableXsendfile="false">
     </server>
     
     <!-- enableGuestLogin: If you want anybody to login as guest, set the following line to true

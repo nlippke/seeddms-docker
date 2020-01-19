@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 inputpdf=$1
 tmpdir=/tmp/seed
 lockfile=$tmpdir/`basename $0`
