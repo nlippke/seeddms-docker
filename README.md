@@ -2,7 +2,8 @@
 
 Builds a docker image for seeddms (https://www.seeddms.org).
 
-This image supports OCR processing for images and PDFs.
+This image supports OCR processing for images and PDFs out of the box. Other types can be configured and converted using web interface.
+Cron is also included to handle jobs internally (backup, index, ...).
 
 ## How to run
 
