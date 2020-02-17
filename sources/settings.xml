@@ -154,8 +154,9 @@
      <converter mimeType="audio/mp3">id3 -l -R %s | egrep '(Title|Artist|Album)' | sed 's/^[^:]*: //g'</converter>
      <converter mimeType="audio/mpeg">id3 -l -R %s | egrep '(Title|Artist|Album)' | sed 's/^[^:]*: //g'</converter>
      <converter mimeType="text/plain">cat %s</converter>
+     <converter mimeType="text/xml">cat %s</converter>
     <converter mimeType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">xlsx2csv %s</converter><converter mimeType="application/vnd.openxmlformats-officedocument.wordprocessingml.document">docx2txt %s -</converter><converter mimeType="image/jpeg">tesseract %s - -l deu --psm 3 --oem 3 2&gt; /dev/null | tr '\n' ' '</converter></converters>
 
-  <converters target="preview"><converter mimeType="image/*">convert -resize %wx '%f' '%o'</converter><converter mimeType="application/pdf">convert -density 100 -resize %wx '%f[0]' '%o'</converter><converter mimeType="application/postscript">convert -density 100 -resize %wx '%f[0]' '%o'</converter><converter mimeType="text/plain">a2ps -1 -a1  -R -B -o - '%f' | gs -dBATCH -dNOPAUSE -sDEVICE=pngalpha -dFirstPage=1 -dLastPage=1 -dPDFFitPage -r72x72 -sOutputFile=- -q - | convert  -resize %wx png:- '%o'</converter></converters></advanced>
+  <converters target="preview"><converter mimeType="image/*">convert -resize %wx '%f' '%o'</converter><converter mimeType="application/pdf">convert -density 100 -resize %wx '%f[0]' '%o'</converter><converter mimeType="application/postscript">convert -density 100 -resize %wx '%f[0]' '%o'</converter><converter mimeType="text/*">a2ps -1 -a1  -R -B -o - '%f' | gs -dBATCH -dNOPAUSE -sDEVICE=pngalpha -dFirstPage=1 -dLastPage=1 -dPDFFitPage -r72x72 -sOutputFile=- -q - | convert  -resize %wx png:- '%o'</converter></converters></advanced>
 
 <extensions><extension name="example"/></extensions></configuration>

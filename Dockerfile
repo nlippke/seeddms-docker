@@ -5,7 +5,7 @@ ENV SEEDDMS_BASE=/var/www/seeddms
 ENV SEEDDMS_HOME=/var/www/seeddms/seeddms
 
 # Update and install necessary packages
-RUN apt-get update && apt-get install --no-install-recommends gnumeric libpng-dev catdoc poppler-utils \
+RUN apt-get update && apt-get install --no-install-recommends gnumeric libpng-dev catdoc poppler-utils a2ps \
     id3 docx2txt tesseract-ocr tesseract-ocr-deu ocrmypdf imagemagick vim parallel dos2unix cron rsync -y
 RUN docker-php-ext-install gd mysqli pdo pdo_mysql && \
     pear channel-update pear.php.net && pear install Log
