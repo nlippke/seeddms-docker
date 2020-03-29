@@ -1,6 +1,6 @@
 FROM php:7.4-apache
 LABEL maintainer="Niels Lippke<nlippke@gmx.de>"
-ENV VER 5.1.14
+ENV VER 5.1.15
 ENV SEEDDMS_BASE=/var/www/seeddms
 ENV SEEDDMS_HOME=/var/www/seeddms/seeddms
 
