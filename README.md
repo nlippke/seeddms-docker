@@ -16,7 +16,7 @@ version: '2'
 
 services:
   dms:
-    image: nlippke/seeddms:5.1.15
+    image: nlippke/seeddms:5.1.19
     ports:
       - "8080:80"
     environment:
