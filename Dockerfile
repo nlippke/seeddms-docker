@@ -13,7 +13,8 @@ RUN docker-php-ext-install gd mysqli pdo pdo_mysql && \
 # Get seeddms
 RUN curl -fsSL https://downloads.sourceforge.net/project/seeddms/seeddms-${VER}/seeddms-quickstart-${VER}.tar.gz | tar -xzC /var/www
 RUN mv /var/www/seeddms51x /var/www/seeddms && mkdir /var/www/seeddms/backup && mkdir -p /var/www/seeddms/import/admin && \
-    rm -rf /var/www/seeddms/conf && ln -s /var/www/seeddms/data/conf /var/www/seeddms/conf && touch /var/www/seeddms/conf/ENABLE_INSTALL_TOOL
+    mv /var/www/seeddms/conf /var/www/seeddms/data/conf && ln -s /var/www/seeddms/data/conf /var/www/seeddms/conf && \
+    touch /var/www/seeddms/conf/ENABLE_INSTALL_TOOL
 
 # Copy settings-files
 COPY sources/php.ini /usr/local/etc/php/
@@ -21,6 +22,7 @@ COPY sources/000-default.conf /etc/apache2/sites-available/
 COPY sources/settings.xml /var/www/seeddms/data/conf/settings.xml
 COPY sources/seeddms-entrypoint /usr/local/bin
 COPY sources/*.sh /usr/local/bin/
+COPY sources/policy.xml /etc/ImageMagick-6/policy.xml
 
 RUN chown -R www-data:www-data /var/www/seeddms/ && \
     dos2unix /usr/local/bin/*.sh && chmod a+rx /usr/local/bin/*.sh && \
