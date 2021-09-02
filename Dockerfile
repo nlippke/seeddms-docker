@@ -1,13 +1,17 @@
 FROM php:7.4-apache
 LABEL maintainer="Niels Lippke<nlippke@gmx.de>"
-ENV VER 5.1.21
-ENV SEEDDMS_BASE=/var/www/seeddms
-ENV SEEDDMS_HOME=/var/www/seeddms/seeddms
+ENV VER 5.1.23
+ENV SEEDDMS_BASE=/var/www/seeddms \
+    SEEDDMS_HOME=/var/www/seeddms/seeddms
+ENV PUBLIC_CERT=${SEEDDMS_BASE}/conf/cacert.pem \
+    PUBLIC_CERT_SUBJ=/CN=localhost \
+    PRIVATE_KEY=${SEEDDMS_BASE}/conf/cakey.pem \
+    FORCE_SSL=0
 
 # Update and install necessary packages
 RUN apt-get update && apt-get install --no-install-recommends gnumeric libpng-dev catdoc poppler-utils a2ps \
-    id3 docx2txt tesseract-ocr tesseract-ocr-deu ocrmypdf imagemagick vim parallel dos2unix cron rsync -y
-RUN docker-php-ext-install gd mysqli pdo pdo_mysql && \
+    id3 docx2txt tesseract-ocr tesseract-ocr-deu ocrmypdf imagemagick vim parallel dos2unix cron rsync libzip-dev -y
+RUN docker-php-ext-install gd mysqli pdo pdo_mysql zip && \
     pear channel-update pear.php.net && pear install Log
 
 # Get seeddms
@@ -29,8 +33,18 @@ RUN chown -R www-data:www-data /var/www/seeddms/ && \
     dos2unix /usr/local/bin/seeddms-entrypoint && chmod a+rx /usr/local/bin/seeddms-entrypoint && \
     a2enmod rewrite && \
     echo "export SEEDDMS_BASE=$SEEDDMS_BASE" >> /usr/local/bin/seeddms-settings.sh && \
-    echo "export SEEDDMS_HOME=$SEEDDMS_HOME" >> /usr/local/bin/seeddms-settings.sh
+    echo "export SEEDDMS_HOME=$SEEDDMS_HOME" >> /usr/local/bin/seeddms-settings.sh && \
+    sed -ri -e 's!/var/www/html!${SEEDDMS_BASE}/www!g' /etc/apache2/sites-available/*.conf && \
+    sed -ri -e 's!/var/www/!${SEEDDMS_BASE}/www!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
+WORKDIR /etc/apache2/sites-enabled
+RUN ln -s ../sites-available/default-ssl.conf default-ssl.conf
+WORKDIR /etc/apache2/mods-enabled
+RUN ln -s ../mods-available/ssl.conf ssl.conf && \
+    ln -s ../mods-available/ssl.load ssl.load && \
+    ln -s ../mods-available/socache_shmcb.load socache_shmcb.load
+
+WORKDIR $SEEDDMS_BASE
 
 # Volumes to mount
 VOLUME [ "/var/www/seeddms/backup", "/var/www/seeddms/import", "/var/www/seeddms/www/ext" ]
