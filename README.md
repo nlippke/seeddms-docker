@@ -7,7 +7,7 @@ Cron is also included to handle jobs internally (backup, index, ...).
 
 ## How to run
 
-`docker run --name seeddms -d -v dms-data:/var/www/seeddms/data -p 8080:80 nlippke/seeddms:5.1.21`
+`docker run --name seeddms -d -v dms-data:/var/www/seeddms/data -p 8080:80 nlippke/seeddms:5.1.23`
 
 or as compose file
 
