@@ -16,13 +16,16 @@ version: '2'
 
 services:
   dms:
-    image: nlippke/seeddms:5.1.21
+    image: nlippke/seeddms:5.1.23
     ports:
       - "8080:80"
+      - "8443:443"
     environment:
       - TZ=Europe/Berlin
       - 'CRON_INDEX=0 0 * * *'
       - 'CRON_BACKUP=0 23 * * *'
+      - SSL_PORT=8443
+      - FORCE_SSL=1
     mem_limit: 2g
     volumes:
       - dms-data:/var/www/seeddms/data
@@ -36,6 +39,18 @@ services:
 volumes:
   dms-data:
 ```
+
+If you run for the first time make sure to call `/install` and follow the instructions there.
+
+
+## Environment Variables
+Variable               | Default Value | Description
+-----------------------|-----------------------------------|------------
+`PUBLIC_CERT`          |`/var/www/seeddms/conf/cacert.pem` |the fully qualified container path for the CA certificate
+`PUBLIC_CERT_SUBJ`     |`/CN=localhost`                    |the subject used if the CA certificate is created
+`PRIVATE_KEY`          |`/var/www/seeddms/conf/cakey.pem`  |the fully qualified container path for the private certificate key
+`FORCE_SSL`            |`0`                                |`1` redirects to https if plain request
+`SSL_PORT`             |`443`                              |must match external port for https requests
 
 ## Default configuration
 

@@ -7,6 +7,11 @@ tmpdir=/tmp/seed
 lockfile=$tmpdir/`basename $0`
 cores=2
 
+# skip directories
+if [ -d "$1"]; then
+  exit 0
+fi
+
 mkdir -p $tmpdir
 
 while [ -e "$lockfile" ];

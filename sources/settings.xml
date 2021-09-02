@@ -7,7 +7,7 @@
        - language: default language (name of a subfolder in folder "languages")
        - theme: default style (name of a subfolder in folder "styles")
     -->
-    <display siteName="SeedDMS" footNote="" printDisclaimer="false" language="de_DE" theme="bootstrap" previewWidthList="40" previewWidthDetail="100" availablelanguages="" showFullPreview="true" convertToPdf="true" onePageMode="on" previewWidthMenuList="40" previewWidthDropFolderList="100" maxItemsPerPage="0" incItemsPerPage="0">  
+    <display siteName="SeedDMS" footNote="" printDisclaimer="false" language="de_DE" theme="bootstrap" previewWidthList="40" previewWidthDetail="100" availablelanguages="" showFullPreview="true" convertToPdf="true" previewWidthMenuList="40" previewWidthDropFolderList="100" maxItemsPerPage="0" incItemsPerPage="0" onePageMode="true" dateformat="" datetimeformat="" overrideTheme="false">
     </display>
     <!-- strictFormCheck: Strict form checking. If set to true, then all fields in the form will be checked for a value. If set to false, then (most) comments and keyword fields become optional. Comments are always required when submitting a review or overriding document status.
        - viewOnlineFileTypes: files with one of the following endings can be viewed online (USE ONLY LOWER CASE CHARACTERS)
@@ -24,7 +24,7 @@
        - stopWordsFile: path to stop word file for indexer
        - sortUsersInList: how to sort users in lists ('fullname' or '' (default))
     -->   
-    <edition strictFormCheck="false" viewOnlineFileTypes=".txt;.text;.html;.htm;.xml;.pdf;.gif;.png;.jpg;.jpeg" enableConverting="true" enableEmail="false" enableUsersView="true" enableFullSearch="true" enableClipboard="true" enableFolderTree="true" expandFolderTree="1" enableLanguageSelector="true" stopWordsFile="/var/www/seeddms/data/conf/stopwords.txt" sortUsersInList="" enableDropUpload="true" enableRecursiveCount="false" maxRecursiveCount="0" enableThemeSelector="false" fullSearchEngine="sqlitefts" sortFoldersDefault="u" editOnlineFileTypes=".txt;.text" enableMenuTasks="false" enableHelp="false" defaultSearchMethod="fulltext" libraryFolder="0" maxSizeForFullText="0" showSingleSearchHit="false" enableSessionList="false" enableDropFolderList="true" enableMultiUpload="true" defaultDocPosition="end">
+    <edition strictFormCheck="false" viewOnlineFileTypes=".txt;.text;.html;.htm;.xml;.pdf;.gif;.png;.jpg;.jpeg" enableConverting="true" enableEmail="false" enableUsersView="true" enableFullSearch="true" enableClipboard="true" enableFolderTree="true" expandFolderTree="1" enableLanguageSelector="true" stopWordsFile="/var/www/seeddms/data/conf/stopwords.txt" sortUsersInList="" enableDropUpload="true" enableRecursiveCount="false" maxRecursiveCount="0" enableThemeSelector="false" fullSearchEngine="sqlitefts" sortFoldersDefault="u" editOnlineFileTypes=".txt;.text" enableMenuTasks="false" enableHelp="false" defaultSearchMethod="fulltext" libraryFolder="0" maxSizeForFullText="0" showSingleSearchHit="false" enableSessionList="false" enableDropFolderList="true" enableMultiUpload="true" defaultDocPosition="end" noDocumentFormFields="" inlineEditing="false">
     </edition> 
     <!-- enableCalendar: enable/disable calendar
        - calendarDefaultView: calendar default view ("w" for week,"m" for month,"y" for year)
@@ -52,7 +52,7 @@
        - cacheDir: where the preview images are saved
        - backupDir: where the backups are saved
     -->
-    <server rootDir="/var/www/seeddms/seeddms/" httpRoot="/" contentDir="/var/www/seeddms/data/" stagingDir="/var/www/seeddms/data/staging/" luceneDir="/var/www/seeddms/data/lucene/" logFileEnable="true" logFileRotation="d" enableLargeFileUpload="false" partitionSize="2000000" cacheDir="/var/www/seeddms/data/cache/" dropFolderDir="/var/www/seeddms/import/" backupDir="/var/www/seeddms/backup/" checkOutDir="" createCheckOutDir="false" repositoryUrl="https://repository.seeddms.org/dd278323b03fd2aa5510b8fa9addf5ea/" maxUploadSize="" enableXsendfile="false">
+    <server rootDir="/var/www/seeddms/seeddms/" httpRoot="/" contentDir="/var/www/seeddms/data/" stagingDir="/var/www/seeddms/data/staging/" luceneDir="/var/www/seeddms/data/lucene/" logFileEnable="true" logFileRotation="d" enableLargeFileUpload="false" partitionSize="2000000" cacheDir="/var/www/seeddms/data/cache/" dropFolderDir="/var/www/seeddms/import/" backupDir="/var/www/seeddms/backup/" checkOutDir="" createCheckOutDir="false" repositoryUrl="https://repository.seeddms.org/dd278323b03fd2aa5510b8fa9addf5ea/" maxUploadSize="" enableXsendfile="false" proxyUrl="" proxyUser="" proxyPassword="">
     </server>
     
     <!-- enableGuestLogin: If you want anybody to login as guest, set the following line to true
@@ -113,13 +113,13 @@
        - rootFolderID: ID of root-folder (mostly no need to change)
        - titleDisplayHack: Workaround for page titles that go over more than 2 lines.
     -->  
-    <display siteDefaultPage="" rootFolderID="1" titleDisplayHack="true" showMissingTranslations="false">
+    <display siteDefaultPage="" rootFolderID="1" titleDisplayHack="true" showMissingTranslations="false" useHomeAsRootFolder="false">
     </display>
     <!-- guestID: ID of guest-user used when logged in as guest (mostly no need to change)
        - adminIP: if enabled admin can login only by specified IP addres, leave empty to avoid the control
        -          NOTE: works only with local autentication (no LDAP)
     --> 
-    <authentication guestID="2" adminIP="">
+    <authentication guestID="2" adminIP="" apiKey="" apiUserId="0" apiOrigin="">
     </authentication>
     <!-- enableAdminRevApp: false to don't list administrator as reviewer/approver
        - versioningFileName: the name of the versioning info file created by the backup tool
@@ -128,7 +128,7 @@
        - enableVersionModification: allow to modify versions after approval
        - enableDuplicateDocNames: allow duplicate names in a folder
     --> 
-    <edition enableAdminRevApp="false" versioningFileName="versioning_info.txt" workflowMode="traditional_only_approval" enableVersionDeletion="true" enableVersionModification="true" enableDuplicateDocNames="true" enableOwnerRevApp="false" enableSelfRevApp="false" presetExpirationDate="" overrideMimeType="false" initialDocumentStatus="0" enableAcknowledgeWorkflow="" enableRevisionWorkflow="" advancedAcl="false" enableUpdateRevApp="false" removeFromDropFolder="false" allowReviewerOnly="false" enableDuplicateSubFolderNames="false">
+    <edition enableAdminRevApp="false" versioningFileName="versioning_info.txt" workflowMode="traditional_only_approval" enableVersionDeletion="true" enableVersionModification="true" enableDuplicateDocNames="true" enableOwnerRevApp="false" enableSelfRevApp="false" presetExpirationDate="" overrideMimeType="false" initialDocumentStatus="0" enableAcknowledgeWorkflow="" enableRevisionWorkflow="" advancedAcl="false" enableUpdateRevApp="false" removeFromDropFolder="false" allowReviewerOnly="false" enableDuplicateSubFolderNames="false" enableRemoveRevApp="false">
     </edition>
 		<!-- enableNotificationAppRev: true to send notifation if a user is added as a reviewer or approver
 		-->
@@ -145,7 +145,7 @@
        - updateNotifyTime: users are notified about document-changes that took place within the last "updateNotifyTime" seconds
        - extraPath: Path to addtional software. This is the directory containing additional software like the adodb directory, or the pear Log package. This path will be added to the php include path
     -->
-    <server coreDir="" luceneClassDir="" contentOffsetDir="1048576" maxDirID="0" updateNotifyTime="86400" extraPath="/var/www/seeddms/pear/" maxExecutionTime="30" cmdTimeout="30">
+    <server coreDir="" luceneClassDir="" contentOffsetDir="1048576" maxDirID="0" updateNotifyTime="86400" extraPath="/var/www/seeddms/pear/" maxExecutionTime="30" cmdTimeout="30"  enableDebugMode="false">
     </server>
     <converters target="fulltext">
 		 <converter mimeType="application/pdf">ocrmypdf.sh %s</converter>
@@ -157,6 +157,11 @@
      <converter mimeType="text/xml">cat %s</converter>
     <converter mimeType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">xlsx2csv %s</converter><converter mimeType="application/vnd.openxmlformats-officedocument.wordprocessingml.document">docx2txt %s -</converter><converter mimeType="image/jpeg">tesseract %s - -l deu --psm 3 --oem 3 2&gt; /dev/null | tr '\n' ' '</converter></converters>
 
-  <converters target="preview"><converter mimeType="image/*">convert -resize %wx '%f' '%o'</converter><converter mimeType="application/pdf">convert -density 100 -resize %wx '%f[0]' '%o'</converter><converter mimeType="application/postscript">convert -density 100 -resize %wx '%f[0]' '%o'</converter><converter mimeType="text/*">a2ps -1 -a1  -R -B -o - '%f' | gs -dBATCH -dNOPAUSE -sDEVICE=pngalpha -dFirstPage=1 -dLastPage=1 -dPDFFitPage -r72x72 -sOutputFile=- -q - | convert  -resize %wx png:- '%o'</converter></converters></advanced>
+  <converters target="preview">
+    <converter mimeType="image/*">convert -resize %wx '%f' '%o'</converter>
+    <converter mimeType="application/pdf">convert -density 100 -resize %wx '%f[0]' '%o'</converter>
+    <converter mimeType="application/postscript">convert -density 100 -resize %wx '%f[0]' '%o'</converter>
+    <converter mimeType="text/*">a2ps -1 -a1  -R -B -o - '%f' | gs -dBATCH -dNOPAUSE -sDEVICE=pngalpha -dFirstPage=1 -dLastPage=1 -dPDFFitPage -r72x72 -sOutputFile=- -q - | convert  -resize %wx png:- '%o'</converter>
+  </converters></advanced>
 
 <extensions><extension name="example"/></extensions></configuration>
