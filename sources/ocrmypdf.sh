@@ -18,7 +18,7 @@ do
     sleep 5
 done
 
-if ( set -o noclobber; echo "locked" > "$lockfile" ); then
+if ( set -o noclobber; echo "locked" > "$lockfile" ) 2> /dev/null; then
   trap 'rm -f "$lockfile"; exit $?'  INT TERM KILL EXIT
 else
   exit 1
