@@ -2,13 +2,12 @@
 
 set -e
 
-inputpdf=$1
 tmpdir=/tmp/seed
 lockfile=$tmpdir/`basename $0`
 cores=2
 
 # skip directories
-if [ -d "$1"]; then
+if [ -d "$1" ]; then
   exit 0
 fi
 
@@ -19,7 +18,7 @@ do
     sleep 5
 done
 
-if ( set -o noclobber; echo "locked" > "$lockfile"); then
+if ( set -o noclobber; echo "locked" > "$lockfile" ); then
   trap 'rm -f "$lockfile"; exit $?'  INT TERM KILL EXIT
 else
   exit 1
