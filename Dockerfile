@@ -1,6 +1,6 @@
 FROM php:7.4-apache
 LABEL maintainer="Niels Lippke<nlippke@gmx.de>"
-ENV VER 5.1.23
+ENV VER 5.1.24
 ENV SEEDDMS_BASE=/var/www/seeddms \
     SEEDDMS_HOME=/var/www/seeddms/seeddms
 ENV PUBLIC_CERT=${SEEDDMS_BASE}/conf/cacert.pem \
@@ -9,8 +9,11 @@ ENV PUBLIC_CERT=${SEEDDMS_BASE}/conf/cacert.pem \
     FORCE_SSL=0
 
 # Update and install necessary packages
-RUN apt-get update && apt-get install --no-install-recommends gnumeric libpng-dev catdoc poppler-utils a2ps \
-    id3 docx2txt tesseract-ocr tesseract-ocr-deu ocrmypdf imagemagick vim parallel dos2unix cron rsync libzip-dev -y
+RUN apt-get update && apt-get install --no-install-recommends gnumeric libpng-dev catdoc poppler-utils a2ps html2text \
+    id3 docx2txt tesseract-ocr tesseract-ocr-deu ocrmypdf imagemagick vim parallel dos2unix cron rsync libzip-dev \
+    libmagickwand-dev -y && rm -rf /var/lib/apt/lists/*
+RUN printf "\n" | pecl install imagick
+RUN docker-php-ext-enable imagick
 RUN docker-php-ext-install gd mysqli pdo pdo_mysql zip && \
     pear channel-update pear.php.net && pear install Log
 
@@ -18,7 +21,7 @@ RUN docker-php-ext-install gd mysqli pdo pdo_mysql zip && \
 RUN curl -fsSL https://downloads.sourceforge.net/project/seeddms/seeddms-${VER}/seeddms-quickstart-${VER}.tar.gz | tar -xzC /var/www
 RUN mv /var/www/seeddms51x /var/www/seeddms && mkdir /var/www/seeddms/backup && mkdir -p /var/www/seeddms/import/admin && \
     mv /var/www/seeddms/conf /var/www/seeddms/data/conf && ln -s /var/www/seeddms/data/conf /var/www/seeddms/conf && \
-    touch /var/www/seeddms/conf/ENABLE_INSTALL_TOOL
+    mkdir $SEEDDMS_HOME/ext && touch /var/www/seeddms/conf/ENABLE_INSTALL_TOOL
 
 # Copy settings-files
 COPY sources/php.ini /usr/local/etc/php/
