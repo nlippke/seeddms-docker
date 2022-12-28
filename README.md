@@ -7,21 +7,22 @@ Cron is also included to handle jobs internally (backup, index, ...).
 
 ## How to run
 
-`docker run --name seeddms -d -v dms-data:/var/www/seeddms/data -p 8080:80 nlippke/seeddms:5.1.24`
+`docker run --name seeddms -d -v dms-data:/var/www/seeddms/data -p 8080:80 nlippke/seeddms:6.0.21`
 
 or as compose file
 
 ```yaml
-version: '2'
+version: '3'
 
 services:
   dms:
-    image: nlippke/seeddms:5.1.24
+    image: nlippke/seeddms:6.0.21
     ports:
       - "8080:80"
       - "8443:443"
     environment:
       - TZ=Europe/Berlin
+      - 'CRON_SCHEDULER=5 * * * *'
       - 'CRON_INDEX=0 0 * * *'
       - 'CRON_BACKUP=0 23 * * *'
       - SSL_PORT=8443
@@ -69,9 +70,17 @@ Backup is done by syncing the `data` folder (partially) to the backup folder. Us
 
 ## Full text search
 
-Indexing documents can take some time (especially on low powered NAS). Therefore indexing is done asynchronously by a job. Use `CRON_INDEX` for scheduling this job. 
+Indexing documents can take some time (especially on low powered NAS). Therefore indexing is done asynchronously by a job. Use `CRON_INDEX` for scheduling this job.
+
+## Scheduler
+
+seeddms comes with an internal scheduler. This scheduler itself is triggered using cron. Default configuration is to check every 5 minutes whether to fire a job.
+This schedule can be changed using `CRON_SCHEDULER`. Also make sure that a seeddms-user `cli_scheduler` exists.
+
+## Migrating from 5.1
+
+If migrating from an existing 5.1 installation you need to update database first using [migration.sql](migration.sql).
 
 ## Additional information
 
 The image is base on https://github.com/ludwigprager/docker-seeddms.
-
