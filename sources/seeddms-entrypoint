@@ -4,9 +4,19 @@ rm -rf /tmp/seed
 
 if [ -n "$TZ" ]; then
   echo $TZ > /etc/timezone
+  if ! tail /usr/local/etc/php/php.ini | grep date.timezone > /dev/null; then
+    echo "" >> /usr/local/etc/php/php.ini
+    echo "\ndate.timezone = $TZ" >> /usr/local/etc/php/php.ini
+  fi
 fi
 
 rm -f /etc/cron.d/seeddms
+
+if [ -z "$CRON_SCHEDULER" ]; then
+  CRON_SCHEDULER="5 * * * *"
+fi
+
+echo "$CRON_SCHEDULER su -s /bin/bash -c '. /usr/local/bin/seeddms-settings.sh && /var/www/seeddms/seeddms/utils/seeddms-schedulercli --config /var/www/seeddms/conf/settings.xml --mode=run' www-data" >> /etc/cron.d/seeddms
 
 if [ -n "$CRON_INDEX" ]; then
    echo "$CRON_INDEX su -s /bin/bash -c /usr/local/bin/seeddms-generate-index.sh www-data" >> /etc/cron.d/seeddms

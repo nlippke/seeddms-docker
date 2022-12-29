@@ -1,6 +1,6 @@
 FROM php:7.4-apache
 LABEL maintainer="Niels Lippke<nlippke@gmx.de>"
-ENV VER 5.1.24
+ENV VER 6.0.21
 ENV SEEDDMS_BASE=/var/www/seeddms \
     SEEDDMS_HOME=/var/www/seeddms/seeddms
 ENV PUBLIC_CERT=${SEEDDMS_BASE}/conf/cacert.pem \
@@ -19,7 +19,7 @@ RUN docker-php-ext-install gd mysqli pdo pdo_mysql zip && \
 
 # Get seeddms
 RUN curl -fsSL https://downloads.sourceforge.net/project/seeddms/seeddms-${VER}/seeddms-quickstart-${VER}.tar.gz | tar -xzC /var/www
-RUN mv /var/www/seeddms51x /var/www/seeddms && mkdir /var/www/seeddms/backup && mkdir -p /var/www/seeddms/import/admin && \
+RUN mv /var/www/seeddms60x /var/www/seeddms && mkdir /var/www/seeddms/backup && mkdir -p /var/www/seeddms/import/admin && \
     mv /var/www/seeddms/conf /var/www/seeddms/data/conf && ln -s /var/www/seeddms/data/conf /var/www/seeddms/conf && \
     mkdir $SEEDDMS_HOME/ext && touch /var/www/seeddms/conf/ENABLE_INSTALL_TOOL
 
