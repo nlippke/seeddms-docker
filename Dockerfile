@@ -1,6 +1,6 @@
 FROM php:7.4-apache
 LABEL maintainer="Niels Lippke<nlippke@gmx.de>"
-ENV VER 6.0.21
+ENV VER 6.0.23
 ENV SEEDDMS_BASE=/var/www/seeddms \
     SEEDDMS_HOME=/var/www/seeddms/seeddms
 ENV PUBLIC_CERT=${SEEDDMS_BASE}/conf/cacert.pem \
@@ -11,10 +11,11 @@ ENV PUBLIC_CERT=${SEEDDMS_BASE}/conf/cacert.pem \
 # Update and install necessary packages
 RUN apt-get update && apt-get install --no-install-recommends gnumeric libpng-dev catdoc poppler-utils a2ps html2text \
     id3 docx2txt tesseract-ocr tesseract-ocr-deu ocrmypdf imagemagick vim parallel dos2unix cron rsync libzip-dev \
+    libldb-dev libldap2-dev libxslt1-dev \
     libmagickwand-dev -y && rm -rf /var/lib/apt/lists/*
 RUN printf "\n" | pecl install imagick
 RUN docker-php-ext-enable imagick
-RUN docker-php-ext-install gd mysqli pdo pdo_mysql zip && \
+RUN docker-php-ext-install gd mysqli pdo pdo_mysql zip ldap xsl intl && \
     pear channel-update pear.php.net && pear install Log
 
 # Get seeddms

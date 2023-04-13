@@ -16,7 +16,7 @@ version: '3'
 
 services:
   dms:
-    image: nlippke/seeddms:6.0.21
+    image: nlippke/seeddms:6.0.23
     ports:
       - "8080:80"
       - "8443:443"
