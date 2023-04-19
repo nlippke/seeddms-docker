@@ -1,6 +1,7 @@
 FROM php:7.4-apache
 LABEL maintainer="Niels Lippke<nlippke@gmx.de>"
 ENV VER 6.0.23
+ENV PAPERLESS_VER 1.1.0
 ENV SEEDDMS_BASE=/var/www/seeddms \
     SEEDDMS_HOME=/var/www/seeddms/seeddms
 ENV PUBLIC_CERT=${SEEDDMS_BASE}/conf/cacert.pem \
@@ -22,7 +23,9 @@ RUN docker-php-ext-install gd mysqli pdo pdo_mysql zip ldap xsl intl && \
 RUN curl -fsSL https://downloads.sourceforge.net/project/seeddms/seeddms-${VER}/seeddms-quickstart-${VER}.tar.gz | tar -xzC /var/www
 RUN mv /var/www/seeddms60x /var/www/seeddms && mkdir /var/www/seeddms/backup && mkdir -p /var/www/seeddms/import/admin && \
     mv /var/www/seeddms/conf /var/www/seeddms/data/conf && ln -s /var/www/seeddms/data/conf /var/www/seeddms/conf && \
-    mkdir $SEEDDMS_HOME/ext && touch /var/www/seeddms/conf/ENABLE_INSTALL_TOOL
+    mkdir $SEEDDMS_HOME/ext && touch /var/www/seeddms/conf/ENABLE_INSTALL_TOOL && \
+    curl -fsSL -o /tmp/paperless.zip https://github.com/SeedDMS/paperless/releases/download/${PAPERLESS_VER}/paperless-${PAPERLESS_VER}.zip && \
+    unzip -d /var/www/seeddms/www/ext/paperless /tmp/paperless.zip && rm -f /tmp/paperless.zip  
 
 # Copy settings-files
 COPY sources/php.ini /usr/local/etc/php/

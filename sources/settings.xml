@@ -113,7 +113,7 @@
        - backupDir: where the backups are saved
     -->
     <server
-            rootDir="/var/www/seeddms/seeddms/"
+            rootDir="/var/www/seeddms/www/"
             httpRoot="/"
             contentDir="/var/www/seeddms/data/"
             stagingDir="/var/www/seeddms/data/staging/"
